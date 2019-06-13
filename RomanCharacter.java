@@ -53,7 +53,36 @@ public class RomanCharacter {
 							}
 						break;
 					case 'L':
-						
+						cnt++;
+						total+=50;
+						break;
+					case 'C':
+						try {
+							if(cArray[cnt+1] == 'D')
+							{
+								cnt+=2; 
+								total+= 400;
+							}
+							else if(cArray[cnt+1] == 'M') {
+								cnt+=2;
+								total+=900;
+							}
+							else {
+								cnt++;
+								total+=100;
+							}
+							}catch(IndexOutOfBoundsException e) {
+								cnt++;
+								total+=100;
+							}
+					break;
+					case 'D':
+						cnt++;
+						total+=500;
+						break;
+					case 'M':
+						cnt++;
+						total+=1000;
 						break;
 					}
 		        }
