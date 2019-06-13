@@ -52,6 +52,9 @@ public class RomanCharacter {
 								total+=10;
 							}
 						break;
+					case 'L':
+						
+						break;
 					}
 		        }
 		        return total;
