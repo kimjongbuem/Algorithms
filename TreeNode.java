@@ -30,34 +30,34 @@ class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
         TreeNode leftNode = returnValueLeftNode(root);
         TreeNode rightNode = returnValueRightNode(root);
-        if(leftNode.val == x && rightNode.val == y)
+        if(leftNode.val == y && rightNode.val == x)
         	return true;
         return false;
     }
     public TreeNode returnValueLeftNode(TreeNode root) {
     	TreeNode returnLNode = null, returnRNode = null;
-    	if(root.left == null || root.right == null)
+    	if(root.left == null && root.right == null)
     		return root;
     	 if(root.left != null)
     		 returnLNode = returnValueLeftNode(root.left);
     	 if(root.right != null)
     		 returnRNode = returnValueRightNode(root.right);
     	 
-    	 if(returnLNode != null && returnRNode !=null)
+    	 if(returnLNode != null)
     		 return returnLNode;
     	 else
     		 return returnRNode;
     }
 	public TreeNode returnValueRightNode(TreeNode root) {
 		TreeNode returnLNode = null, returnRNode = null;
-    	if(root.left == null || root.right == null)
+    	if(root.left == null && root.right == null)
     		return root;
     	 if(root.left != null)
     		 returnLNode = returnValueLeftNode(root.left);
     	 if(root.right != null)
     		 returnRNode = returnValueRightNode(root.right);
     	 
-    	 if(returnLNode != null && returnRNode !=null)
+    	 if(returnRNode !=null)
     		 return returnRNode;
     	 else
     		 return returnLNode;
