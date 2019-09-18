@@ -5,7 +5,7 @@ class Solution {
 		String answer = "";
 		int cur_number = 1;
 		int my_number = 0;
-		Stack<Integer> stack = new Stack<Integer>();
+		Stack<String> stack = new Stack<String>();
 		int next = p;
 		int cur = 1;
 			while (my_number < t) {
@@ -30,17 +30,44 @@ class Solution {
 		return answer;
 	}
 
-	public <String getBaseString(Stack<Integer> stack, int num, int deviceN, boolean is10down) {
+	public String getBaseString(Stack<String> stack, int num, int deviceN, boolean is10down) {
 		String base = "";
 		if (num == 0)
 			return "0";
 
 		while (num != 0) {
 			int r = num % deviceN;
+			
 			num /= deviceN;
-			stack.push(r);
+			
+			if(r < 10)
+			stack.push(Integer.toString(r));
+			else {
+				String s="";
+				switch(r){
+				case 10:
+					s="A";
+					break;
+				case 11:
+					s="B";
+					break;
+				case 12:
+					s="C";
+					break;
+				case 13:
+					s="D";
+					break;
+				case 14:
+					s="E";
+					break;
+				case 15:
+					s="F";
+					break;
+				}
+				stack.push(s);
+			}
 		}
-		while (!stack.empty()) base += stack.pop().toString();
+		while (!stack.empty()) base += stack.pop();
 		
 		return base;
 	}
@@ -49,7 +76,7 @@ class Solution {
 public class nGame {
 
 	public static void main(String[] args) {
-		System.out.println(new Solution().solution(2, 4, 2, 1));
+		System.out.println(new Solution().solution(16, 16, 2, 2));
 
 	}
 
