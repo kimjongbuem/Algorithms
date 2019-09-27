@@ -1,37 +1,24 @@
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 class Solution {
     public int solution(int stock, int[] dates, int[] supplies, int k) {
-        int day = 0;
+        int idx = 0;
     	int answer = 0;
-    	int datesIndex = 0;
-
-    	
-    	for(int s : supplies) {
-    		day += s;
-    	}
-    	
-    	if(day + stock == k) return supplies.length;
-    	
-    	day = 0;
-    	 while(day < k) {
-         	if(--stock <= 0 ) { 
-         		stock = supplies[datesIndex];
-         		datesIndex++;
-         		answer++;
-         	}
-         	else if(day == dates[datesIndex] - 1) { 
-         		if(k - day < stock + supplies[datesIndex] ) answer++;
-         		datesIndex++;
-         		
-         	}
-         	if(datesIndex == dates.length) break;
-         	day++;
-         }
-    	
-    	
-    	
-    	
+    	 Queue<Integer> priorityQueue = new PriorityQueue<>(Comparator.reverseOrder());
+    	 
+    	 for(int i = 0; i < k;i++) {
+    		 if(idx < dates.length && i == dates[idx]) {
+    			 priorityQueue.add(supplies[idx++]);
+    		 }
+    		 if(stock == 0) {
+    			 stock += priorityQueue.poll();
+    			 answer++;
+    		 }
+    		 stock-=1;
+    	 }    	
         return answer;
-       
     }
 }
 
@@ -42,7 +29,7 @@ public class Ramen {
 		int[] dates = {4,10,15};
 		int[] supplies = {20,5,10};
 		
-		System.out.println(new Solution().solution(2, dates,supplies, 30));
+		System.out.println(new Solution().solution(4, dates,supplies, 30));
 
 	}
 
