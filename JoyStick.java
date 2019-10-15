@@ -14,9 +14,9 @@ class Solution {
     				answer++; ch++;
     			}
     		}else {
-    			ch = 'Z';
+    			ch = 'Z'; answer++;
     			while(ch != charData[0]) 
-    				answer++; ch--;
+    			{	answer++; ch--;}
     		}
     		return answer;
     	}
@@ -84,7 +84,7 @@ class Solution {
         	}
     	
     	if(leftSize <= rightSize) answer+=RepeatFunc(name.substring(curidx+leftSize)
-    			,first+leftSize) + 1;
+    			,first+leftSize - 1) + 1;
     	else answer+=RepeatFunc(name.substring(curidx + 1 , name.length() - rightSize + 1),
     			 last - rightSize) + 1;
     	
@@ -97,6 +97,6 @@ class Solution {
 public class JoyStick {
 
 	public static void main(String[] args) {
-		System.out.println(new Solution().solution("JEROEN"));
+		System.out.println(new Solution().solution("JAA"));
 	}
 }
