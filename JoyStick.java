@@ -1,142 +1,67 @@
 class Solution {
-    public int solution(String name) {
-        int answer = 0;
-        char[] charName = name.toCharArray();
-        char data = 'A';
+    public int solution(String name) {    
+       return RepeatFunc(name, 0);
+    }
+    private int RepeatFunc(String name, int cur) {
+    	 int answer = 0;
+    	 int curidx = cur;
+    	 char[] charData = name.toCharArray();
+    	if(name.length() == 1) {
+    		char ch = 'A';
+    		if(name == "A") {}
+    		else if(charData[0] < 'M'){
+    			while(ch != charData[0]) {
+    				answer++; ch++;
+    			}
+    		}else {
+    			ch = 'Z';
+    			while(ch != charData[0]) 
+    				answer++; ch--;
+    		}
+    		return answer;
+    	}
         
-        int first = 0, last = name.length() - 1;
-        int idx = 0;
-        if(last - first == 0) {
-        	if(charName[0] == 'A') {
-        		return 0;
-            }
-            else if(charName[0] < 'M') {
-            	while(charName[0] != data) {
-            		data++; answer++;
-            	}
-            }else {
-            	data = 'Z';
-            	while(charName[0] != data) {
-            		 data--; answer++;
-            	}
-            }
-            
-            return answer;
-        }
+    	if(charData[curidx] < 'M') {
+    		char ch = 'A';
+    		while(ch != charData[curidx]) {
+				answer++; ch++;
+			}
+    	}else {
+			char ch = 'Z';
+			while(ch != charData[curidx]) 
+				answer++; ch--;
+		}
         
-        while(last - first != 0) {
-        	 if(charName[idx] == 'A') {
-        		 boolean isAllcheckedA = true;
-        		 int leftSize = 0, rightSize = 0;
-        		 for(int i = first + 1; i < last; i++) {
-        			 leftSize += 1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        			 
-        		 }
-        		 
-        		 for(int i = last; i >= first; i--) {
-        			 rightSize +=1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        		 }
-        		 
-        		 if(isAllcheckedA) {
-        			 return answer + last -first + 1;
-        		 }
-        		 
-        		 else if (leftSize < rightSize) {
-        			 first+=leftSize; 
-        			 answer+=leftSize;
-        		 }
-        		 else {
-        			 last-=rightSize; 
-        			 answer+=rightSize;
-        		 }
-             }
-             else if(charName[idx] < 'M') {
-             	while(charName[idx] != data) {
-             		data++; answer++;
-             	}
-             	 boolean isAllcheckedA = true;
-        		 int leftSize = 0, rightSize = 0;
-        		 for(int i = first + 1; i < last; i++) {
-        			 leftSize += 1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        			 
-        		 }
-        		 
-        		 for(int i = last; i >= first; i--) {
-        			 rightSize +=1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        		 }
-        		 
-        		 if(isAllcheckedA) {
-        			 return answer + last -first + 1;
-        		 }
-        		 
-        		 else if (leftSize < rightSize) {
-        			 first+=leftSize; 
-        			 answer+=leftSize;
-        		 }
-        		 else {
-        			 last-=rightSize; 
-        			 answer+=rightSize;
-        		 }
-             	
-             	
-             	
-             }else {
-             	data = 'Z';
-             	while(charName[idx] != data) {
-             		 data--; answer++;
-             	}
-             	 boolean isAllcheckedA = true;
-        		 int leftSize = 0, rightSize = 0;
-        		 for(int i = first + 1; i < last; i++) {
-        			 leftSize += 1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        			 
-        		 }
-        		 
-        		 for(int i = last; i >= first; i--) {
-        			 rightSize +=1;
-        			 if(charName[i] != 'A') {
-        				 isAllcheckedA = false;
-        			 }
-        			 else break;
-        		 }
-        		 
-        		 if(isAllcheckedA) {
-        			 return answer + last -first + 1;
-        		 }
-        		 
-        		 else if (leftSize < rightSize) {
-        			 first+=leftSize; 
-        			 answer+=leftSize;
-        		 }
-        		 else {
-        			 last-=rightSize; 
-        			 answer+=rightSize;
-        		 }
-             }
-        	 data='A';
-        }
- 
-        return answer;
+    	int leftSize = 0, rightSize = 0;
+    	
+    	int first = 0; int last = name.length() - 1;
+    	for(int i = first + 1; i <= last; ++i) {   		
+    		if(charData[i] == 'A' && i == last) return answer;
+    		else if (charData[i] == 'A') {
+    			leftSize++;
+    		}
+    		else {
+    			leftSize++;
+    			break;
+    		}
+    	}
+    	for(int i = last; i >= first + 1; --i) {   		
+    		if(charData[i] == 'A' && i == first + 1) return answer;
+    		else if (charData[i] == 'A') {
+    			rightSize++;
+    		}
+    		else {
+    			rightSize++;
+    			break;
+    		}
+    	}
+
+    	if(leftSize < rightSize) answer+=RepeatFunc(name.substring(curidx+leftSize)
+    			,first+leftSize);
+    	else answer+=RepeatFunc(name.substring(curidx + 1 , name.length() - rightSize + 1),
+    			 last - rightSize);
+    	
+    	return answer;
     }
 }
 
@@ -145,7 +70,7 @@ class Solution {
 public class JoyStick {
 
 	public static void main(String[] args) {
-		System.out.println(new Solution().solution("JAZ"));
+		System.out.println(new Solution().solution("JAN"));
 
 	}
 
