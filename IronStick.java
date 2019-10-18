@@ -9,10 +9,12 @@ class Solution {
         boolean isStick = false;
        int rayer = 0;
        char before = 0;
-       
        String str = arrangement;
+       while(true) {
+
        String temp="";
        int rf = 0;
+       int beforeAnswer = answer;
         for(int i = 0; i < str.length(); i++) {      	
         	if(str.charAt(i) == '(') {
         		if(queue.isEmpty()) rf = i;
@@ -28,14 +30,13 @@ class Solution {
         				answer+= (rayer + 1);
         				temp+= str.substring(rf + 1, i );
         			}
-        			
         			isStick = false; rayer = 0;
-        			
         		}
         	}
         }
+        if(beforeAnswer == answer) break;
          str = temp;
-         
+       }
         return answer;
     }
 }
