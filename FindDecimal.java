@@ -4,29 +4,36 @@ import java.util.Set;
 class Solution {
     public int solution(String numbers) {
        Set<Integer> set = new HashSet<Integer>();
-       FindDeciaml(numbers, set);
+       FindDeciaml(numbers.toCharArray(), set,0);
     	return set.size();
     }
-    private int FindDeciaml(String numbers, Set<Integer> set) {
-    	int answer = 0;
-//    	if(numbers.length() == 0) return 0; // 재귀 종료조건
-//    	
-//    	for(int i = 0; i < numbers.length(); i++) {
-//    		if(numbers.indexOf(i) == '0') continue;
-//    		StringBuilder builder= new StringBuilder();
-//    		builder.append(numbers.indexOf(i));
-//    		int repeat =  1;
-//    		for(int r = 1; r < numbers.length() - 1; r++) repeat*= r;
-//    		while(repeat > 0) {
-//    			repeat--;
-//    		}
-//    	}
+    private void FindDeciaml(char[] numbers, Set<Integer> set, int depth) {
+    	if(depth == numbers.length && checkDeciaml(Integer.parseInt(new String(numbers)))) { 
+    		set.add(Integer.parseInt(new String(numbers)));
+    		return;
+    	}
+    	for(int i = depth; i < numbers.length; i++) {
+    		rightRotate(numbers, i, depth);
+    		FindDeciaml(numbers, set, depth + 1);
+    		leftRotate(numbers, i, depth);
+    	}
     	
-    	
-    	
-    	
-    	return answer;
     }
+    public static void rightRotate(char[] numbers, int e, int s) {
+    	char temp = numbers[e];
+		
+		for(int i=e; i>s; i--) {
+			numbers[i] =numbers[i - 1];
+		}
+		numbers[s] = temp;
+	}
+	public static void leftRotate(char[] numbers, int s, int e) {
+    	char temp =numbers[e];
+		for(int i=e; i<s; i++) {
+			numbers[i] = numbers[i + 1];
+		}
+		numbers[s] = temp;
+	}
     private boolean checkDeciaml(int num) {
     	
     	if(num < 2) return false; // 소수아님
@@ -42,7 +49,7 @@ class Solution {
 public class FindDecimal {
 
 	public static void main(String[] args) {
-		//짝수가 되면안된다.
+		System.out.println(new Solution().solution("17"));
 
 	}
 
