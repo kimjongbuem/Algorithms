@@ -5,47 +5,49 @@
 class Charater{
 	private int visitLength = 0;
 	private int x = 5, y = 5;
-	boolean[][] checked;
+	boolean[][] rowChecked;
+	boolean[][] colChecked;
 	public Charater() {
-		checked = new boolean[11][11];
+		rowChecked = new boolean[11][11];
+		colChecked = new boolean[11][11];
 	}
 	void Move(char m) {
 		switch(m) {
 		case 'U':
 			if( y + 1 > 11 ) return;
 			y += 1;	
-			if(!checked[y - 1][x] || !checked[y][x]) {
+			if(!colChecked[y - 1][x] || !colChecked[y][x]) {
 				visitLength++;
-				checked[y - 1][x] = true;
-				checked[y][x] = true;
+				colChecked[y - 1][x] = true;
+				colChecked[y][x] = true;
 			} 
 			
 			break;
 		case 'D':
 			if( y - 1 < 0 ) return;
 			y -= 1; 	
-			if(!checked[y + 1][x] || !checked[y][x]) {
+			if(!colChecked[y + 1][x] || !colChecked[y][x]) {
 				visitLength++;
-				checked[y + 1][x] = true;
-				checked[y][x] = true;
+				colChecked[y + 1][x] = true;
+				colChecked[y][x] = true;
 			}
 			break;
 		case 'R':
 			if( x + 1 > 11 ) return;
 			x += 1; 	
-			if(!checked[y][x - 1] || !checked[y][x]) {
+			if(!rowChecked[y][x - 1] || !rowChecked[y][x]) {
 				visitLength++;
-				checked[y][x - 1] = true;
-				checked[y][x] = true;
+				rowChecked[y][x - 1] = true;
+				rowChecked[y][x] = true;
 			} 
 			break;
 		case 'L':
 			if( x - 1 < 0 ) return;
 			x -= 1; 	
-			if(!checked[y][x + 1] || !checked[y][x]) {
+			if(!rowChecked[y][x + 1] || !rowChecked[y][x]) {
 				visitLength++;
-				checked[y][x + 1] = true;
-				checked[y][x] = true;
+				rowChecked[y][x + 1] = true;
+				rowChecked[y][x] = true;
 			}
 			break;
 		}
@@ -68,7 +70,7 @@ class Solution {
 public class VisitLength {
 
 	public static void main(String[] args) {
-		System.out.println(new Solution().solution("ULURRDLLU"));
+		System.out.println(new Solution().solution("LR"));
 
 	}
 
