@@ -14,34 +14,38 @@ class Charater{
 		case 'U':
 			if( y + 1 > 11 ) return;
 			y += 1;	
-			if(!checked[y - 1][x]) {
+			if(!checked[y - 1][x] || !checked[y][x]) {
 				visitLength++;
 				checked[y - 1][x] = true;
+				checked[y][x] = true;
 			} 
 			
 			break;
 		case 'D':
 			if( y - 1 < 0 ) return;
 			y -= 1; 	
-			if(!checked[y + 1][x]) {
+			if(!checked[y + 1][x] || !checked[y][x]) {
 				visitLength++;
 				checked[y + 1][x] = true;
+				checked[y][x] = true;
 			}
 			break;
 		case 'R':
 			if( x + 1 > 11 ) return;
 			x += 1; 	
-			if(!checked[y][x - 1]) {
+			if(!checked[y][x - 1] || !checked[y][x]) {
 				visitLength++;
 				checked[y][x - 1] = true;
+				checked[y][x] = true;
 			} 
 			break;
 		case 'L':
 			if( x - 1 < 0 ) return;
 			x -= 1; 	
-			if(!checked[y][x + 1]) {
+			if(!checked[y][x + 1] || !checked[y][x]) {
 				visitLength++;
 				checked[y][x + 1] = true;
+				checked[y][x] = true;
 			}
 			break;
 		}
@@ -64,7 +68,7 @@ class Solution {
 public class VisitLength {
 
 	public static void main(String[] args) {
-		System.out.println(new Solution().solution("LR"));
+		System.out.println(new Solution().solution("ULURRDLLU"));
 
 	}
 
