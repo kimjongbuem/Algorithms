@@ -25,7 +25,6 @@ class Solution {
     	  else cur = temp;
     	  
       }
-      cur=String.valueOf(msg.charAt(msg.length() - 1));
       if(cur.length() > 1 ) list.add(map.get(cur));
       else list.add(msg.charAt(msg.length() - 1) - 'A' + 1);
      answer = list.stream().mapToInt(i->i).toArray();
@@ -36,7 +35,7 @@ class Solution {
 public class Compression {
 
 	public static void main(String[] args) {
-		int[] answer= new Solution().solution("KAKAO");
+		int[] answer= new Solution().solution("ABABABABABABABAB");
 		for(int i = 0; i<answer.length;i++) System.out.println(answer[i]);
 
 	}
