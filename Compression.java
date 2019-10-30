@@ -22,11 +22,8 @@ class Solution {
     		  list.add(map.get(cur));
     		  cur = String.valueOf(msg.charAt(i));
     	  }
-    	  else {
-    		  if(cur.length() > 1) list.add(map.get(temp));
-    		  else list.add(cur.charAt(0)- 'A' + 1);
-    		  cur = temp;
-    	  }
+    	  else cur = temp;
+    	  
       }
       cur=String.valueOf(msg.charAt(msg.length() - 1));
       if(cur.length() > 1 ) list.add(map.get(cur));
