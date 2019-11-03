@@ -2,8 +2,8 @@
 public class Apartment {
 
 	public static void main(String[] args) {
-		int[] stations = {4, 11};
-		System.out.println(new Apartment().new Solution().solution(11, stations, 1));
+		int[] stations = {9};
+		System.out.println(new Apartment().new Solution().solution(16, stations, 2));
 
 	}
 	class Solution {
@@ -21,26 +21,26 @@ public class Apartment {
 		        	else checked[i - 1 + j] =true;	        	
 	        	}
 	        }
-	        
-	        while(!isAllTrue(checked)) {
+	        int location = 0;
+	        while(location < n) {
 	        	int count = 0; boolean check = false;
-	        	for(int i = 0; i < checked.length; i++) {
-	        		if(checked[i] && check) break;
+	        	for(int i = location; i < checked.length; i++) {
+	        		if(checked[i] && check) {
+	        			location = i + w*2 + 1;
+	        			break;
+	        		}
 	        		else if(!checked[i]) {
 	        			check = true;
 	        			count++; checked[i] = true;
+	        			location++;
 	        		}
 	        	}
-	        	count = (count / (w*2 + 1 + 1)) + 1;
+	        	count = (count / (w*2 + 2)) + 1;
 	        	answer += count; 
 	        }
 	        
 	        return answer;
 	    }
-	    boolean isAllTrue(boolean[] checked) {
-			for(boolean check : checked) if(!check) return false;
-			return true;
-		}
 	}
 	
 }
