@@ -1,25 +1,24 @@
-import java.util.Arrays;
 
 public class Apartment {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		int[] stations = {4, 11};
+		System.out.println(new Apartment().new Solution().solution(11, stations, 1));
 
 	}
 	class Solution {
 	    public int solution(int n, int[] stations, int w) {
 	        int answer = 0;
-	        Arrays.stream(stations).map(i -> i - 1); // ¿Œµ¶Ω∫ ∫Ø»Ø 
 	        boolean[] checked =new boolean[n];
 	        for(int i : stations) {
-	        	checked[i] = true;
+	        	checked[i - 1] = true;
 	        	for(int j = 1; j <= w; j++) {
-	        		if(i - j < 0) break;
-		        	else checked[i - j] =true;	        	
+	        		if(i - 1 - j < 0) break;
+		        	else checked[i  - 1 - j] =true;	        	
 	        	}
 	        	for(int j = 1; j <= w; j++) {
-	        		if(i + j >= n) break;
-		        	else checked[i + j] =true;	        	
+	        		if(i  - 1 + j >= n) break;
+		        	else checked[i - 1 + j] =true;	        	
 	        	}
 	        }
 	        
@@ -32,7 +31,7 @@ public class Apartment {
 	        			count++; checked[i] = true;
 	        		}
 	        	}
-	        	count = (count / (w + 1)) + 1;
+	        	count = (count / (w*2 + 1 + 1)) + 1;
 	        	answer += count; 
 	        }
 	        
