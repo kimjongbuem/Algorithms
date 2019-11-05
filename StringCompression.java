@@ -16,14 +16,16 @@ public class StringCompression {
 	        	String compare ="";
 	        	String print = "";
 	        	for(int i = 0; i < s.length(); i+=x) {
-	        		String cur = s.substring(i, (i / x + 1)* x);
-	        		 if(compare.isEmpty()) {
+	        		String cur ="";
+	        		if(i + x <=s.length()) cur = s.substring(i, i + x);
+	        		else cur = s.substring(i, s.length()); 
+	        		if(compare.isEmpty()) {
 	        			 compare = cur;
 	        			 continue;
 	        		 }
 	        		 if(compare != cur) {
 	        			 if(i + x >= s.length()) print+=cur;
-	        			 if(count > 1) print+=count+compare;
+	        			 if(count > 1) print+=String.valueOf(count)+compare;
 	        			 else print+=compare;
 	        		 
 	        		 compare = cur;
@@ -32,7 +34,7 @@ public class StringCompression {
 	        		 else {
 	        			 count++;
 	        			 if(i + x>=s.length()) {
-	        				 print+=count+cur;
+	        				 print+=String.valueOf(count)+cur;
 	        			 }
 	        		 }
 		        }
