@@ -2,7 +2,7 @@
 public class StringCompression {
 
 	public static void main(String[] args) {
-		System.out.println(new StringCompression(). new Solution().solution("aabbaccc"));
+		System.out.println(new StringCompression(). new Solution().solution("xababcdcdababcdcd"));
 
 	}
 	class Solution {
