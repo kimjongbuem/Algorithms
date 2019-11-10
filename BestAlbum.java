@@ -26,7 +26,7 @@ public class BestAlbum {
 	        	}
 	        	
 	        	for(int p = 0; p < playList.size(); p++) {
-	        		if(genres[i] == playList.get(p).Get_genre_name()) {
+	        		if(genres[i].equals(playList.get(p).Get_genre_name())) {
 	        			playList.get(p).Add(i, plays[i]);
 	        			break;
 	        		}
@@ -38,6 +38,9 @@ public class BestAlbum {
 	        	genre_Set.remove(playList.get(idx++).Get_genre_name());
 	        }
 	        answer = answerList.stream().mapToInt(i -> i).toArray();
+	        for(int i : answer) {
+				System.out.print(i+" ");
+			}
 	        return answer;
 	    }
 	
@@ -90,7 +93,12 @@ public class BestAlbum {
 		    	}
 				@Override
 				public int compareTo(PlayAMountAndIndexInfo o) {
-					return amount - o.amount;
+					if(amount == o.amount) {
+						return o.index - index;
+					}
+					else {
+						return amount - o.amount;
+					}
 				}
 		    }
 		}
