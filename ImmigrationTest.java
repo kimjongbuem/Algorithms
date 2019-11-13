@@ -4,7 +4,8 @@ import java.util.List;
 public class ImmigrationTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		int [] times= {7,10};
+		System.out.println(new ImmigrationTest().new Solution().solution(6, times));
 
 	}
 	class Solution {
@@ -15,7 +16,7 @@ public class ImmigrationTest {
 	        	list.add(new Tester(time)); //큐에 비어있음에도 불구하고 추가를 못할경우 리스트에서 ㅏㄱ제
 	        }
 	        int p = 0;
-	        while(!checkEnd(list)) {
+	        while(!checkEnd(list) ||  p != n) {
 	        	if(isEmptyListAnyMatch(list)) {
 	        		if(p < n ) p++;
 	        		Add(list);
@@ -47,14 +48,14 @@ public class ImmigrationTest {
 	    public boolean isEmptyListAnyMatch(List<Tester> list) {
 	    	return list.stream().anyMatch(
 	    			l -> {
-	    			if(l.GetTesterDestList() ==null) return true;
+	    			if(l.GetTesterDestList().isEmpty()) return true;
 	    			return false;
 	    			});
 	    }
 	    public boolean checkEnd(List<Tester> list) {
 	    	return list.stream().allMatch(
 	    			l -> {
-	    			if(l.GetTesterDestList() ==null) return true;
+	    			if(l.GetTesterDestList().isEmpty()) return true;
 	    			return false;
 	    			});
 	    }
