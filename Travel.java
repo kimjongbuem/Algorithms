@@ -4,7 +4,10 @@ import java.util.Queue;
 
 public class Travel {
 	public static void main(String[] args) {
-		String[][] tickets ={{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
+		String[][] tickets = {{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
+
+				
+				//{{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
 		new Travel().new Solution().solution(tickets);
 	}
 	class Solution {
@@ -20,7 +23,6 @@ public class Travel {
 	        	for(int j = 0; j < tickets.length; j++) {
 		        	if(ticketLink.get(i).end.equals(ticketLink.get(j).start)) {
 		        		ticketLink.get(i).link.add(ticketLink.get(j));
-		        		ticketLink.get(j).link.add(ticketLink.get(i));
 		        	}
 		        }
 	        }
@@ -35,16 +37,17 @@ public class Travel {
 	        
 	        Queue<Ticket> queue = new LinkedList<Ticket>();
 	        queue.add(start);
-	        start.check = true;
+	        start.check = true; boolean ch = true;
 	        while(!queue.isEmpty()) {
 	        	Ticket t = queue.poll();
-	        	if(t.start.equals("ICN")) {
+	        	if(t.start.equals("ICN") && ch) {
 	        		answerList.add(t.start);
 	        		answerList.add(t.end);
+	        		ch = false;
 	        	}else answerList.add(t.end);
 	        	
 	        	for(Ticket tc : t.link) {
-	        		if(!tc.check) {
+	        		if(!tc.check && t.end.equals(tc.start)) {
 	        			tc.check = true;
 	        			queue.add(tc);
 	        		}
