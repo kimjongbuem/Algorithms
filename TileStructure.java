@@ -10,9 +10,9 @@ public class TileStructure {
 	        long answer = 0;
 	         
 	        if(N == 1) return 4;
-	        int num = 1; int height = 1; int width = 1;
+	        long num = 1; long height = 1; long width = 1;
 	        while(num < N) {
-	        	int temp = height + width;
+	        	long temp = height + width;
 	        	height = width;
 	        	width =temp;
 	        	num++;
