@@ -1,11 +1,12 @@
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
-
+import java.util.List;
+import java.util.stream.Collectors;
 public class Travel {
 	public static void main(String[] args) {
-		String[][] tickets = {{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
-
+		String[][] tickets = //{{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
+				{{"ICN", "COO"}, {"ICN", "BOO"}, {"COO", "ICN"}, {"BOO", "DOO"}};
 				
 				//{{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
 		new Travel().new Solution().solution(tickets);
@@ -27,35 +28,41 @@ public class Travel {
 		        }
 	        }
 	        Collections.sort(ticketLink);
-	        Ticket start = null;
-	        for(int i = 0; i < ticketLink.size(); i++) {
-	        	if(ticketLink.get(i).start.equals("ICN")) {
-	        		start = ticketLink.get(i); 
-	        		break;
+
+	        List<Ticket> startICN = ticketLink.stream().filter(i -> i.start.equals("ICN")).collect(Collectors.toList()); ;
+	        int ticketNumber = ticketLink.size(); int curNum = 0;
+	        for(int i = 0; i<startICN.size();i++) {
+	        	if(curNum == ticketNumber) break;
+	        	else {
+	        		curNum = 0;
+	        		for(int s = 0; s < ticketLink.size();s++) ticketLink.get(s).check = false;
+	        		answerList.clear();
 	        	}
-	        }
-	        
-	        Queue<Ticket> queue = new LinkedList<Ticket>();
-	        queue.add(start);
-	        start.check = true; boolean ch = true;
-	        while(!queue.isEmpty()) {
-	        	Ticket t = queue.poll();
-	        	if(t.start.equals("ICN") && ch) {
-	        		answerList.add(t.start);
-	        		answerList.add(t.end);
-	        		ch = false;
-	        	}else answerList.add(t.end);
 	        	
-	        	for(Ticket tc : t.link) {
-	        		if(!tc.check && t.end.equals(tc.start)) {
-	        			tc.check = true;
-	        			queue.add(tc);
-	        		}
-	        	}
+	        	 Queue<Ticket> queue = new LinkedList<Ticket>();
+	 	        queue.add(startICN.get(i));
+	 	       startICN.get(i).check = true; boolean ch = true;
+	 	        while(!queue.isEmpty()) {
+	 	        	Ticket t = queue.poll(); curNum++;
+	 	        	if(t.start.equals("ICN") && ch) {
+	 	        		answerList.add(t.start);
+	 	        		answerList.add(t.end);
+	 	        		ch = false;
+	 	        	}else answerList.add(t.end);
+	 	        	
+	 	        	for(Ticket tc : t.link) {
+	 	        		if(!tc.check && t.end.equals(tc.start)) {
+	 	        			tc.check = true;
+	 	        			queue.add(tc);
+	 	        			break;
+	 	        		}
+	 	        	}
+	 	        }
 	        }
-	        answer = new String[answerList.size()];
-	        for(int i = 0; i < answerList.size(); i++) answer[i] =answerList.get(i);
-	        return answer;
+ 	        answer = new String[answerList.size()];
+ 	        for(int i = 0; i < answerList.size(); i++) answer[i] =answerList.get(i);
+ 	        return answer;
+	       
 	    }
 	    class Ticket implements Comparable<Ticket>{
 	    	String start;
