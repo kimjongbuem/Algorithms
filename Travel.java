@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 public class Travel {
 	public static void main(String[] args) {
 		String[][] tickets = //{{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
-				{{"ICN", "COO"}, {"ICN", "BOO"}, {"COO", "ICN"}, {"BOO", "DOO"}};
-				
+				//{{"ICN", "COO"}, {"ICN", "BOO"}, {"COO", "ICN"}, {"BOO", "DOO"}};
+		 {{ "ICN", "COO" }, { "COO", "ICN" },{ "COO", "ICN" }};
 				//{{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
 		new Travel().new Solution().solution(tickets);
 	}
@@ -59,8 +59,26 @@ public class Travel {
 	 	        	}
 	 	        }
 	        }
- 	        answer = new String[answerList.size()];
+	        if(curNum != ticketNumber) {
+	        	
+	        	for(int i = 0; i < ticketLink.size();i++) {
+	        		if(!ticketLink.get(i).check) {
+	        			if(ticketLink.get(i).start.equals(answerList.get(answerList.size() - 1))){
+	        				answer = new String[answerList.size() + 1];
+	        				answer[answer.length - 1] = ticketLink.get(i).end;
+	        			}else {
+	        				answer = new String[answerList.size() + 2];
+	        				answer[answer.length - 2] = ticketLink.get(i).start;
+	        				answer[answer.length - 1] = ticketLink.get(i).end;
+	        			}
+	        			break;
+	        		}
+	        	}
+	        }
+	        
+	        else answer = new String[answerList.size()];
  	        for(int i = 0; i < answerList.size(); i++) answer[i] =answerList.get(i);
+ 	        
  	        return answer;
 	       
 	    }
