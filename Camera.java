@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Camera {
 
@@ -11,48 +12,56 @@ public class Camera {
 	class Solution {
 	    public int solution(int[][] routes) {
 	    	if(routes.length == 1) return 1;
-	        int answer = 1;
+	        int answer = 0;
+//	        for(int i = 0; i < routes.length; i++)
+//	        {
+//	        	if(routes[i][0] >routes[i][1]) {
+//	        		int temp = routes[i][0];
+//	        		routes[i][0] = routes[i][1];
+//	        		routes[i][1] = temp;
+//	        	}
+//	        }
+//	        
+//	        boolean[] check = new boolean[routes.length];
+//	        
+//	        
+//	        
+//	        for(int r = 0; r < routes.length - 1; r++)
+//	        {int minIndex = 0; int minCount = 70000;
+//	        	if(check[r]) continue; boolean add = false;
+//	        	for(int i = 0; i < routes.length; i++)
+//		        {
+//	        		if(check[i]) continue;
+//	        		int c = 0; 
+//	        		if(routes[i][1] >= 0) {
+//	        			if(routes[i][0] >= 0) c = routes[i][1] - routes[i][0];
+//	        			else c = routes[i][1] - routes[i][0];
+//	        		}else c = -routes[i][0] + routes[i][1];
+//	        		
+//		        	if( c < minCount && !check[i]) {
+//		        		minCount = c;
+//		        		minIndex = i;
+//		        	}
+//		        }
+//	        	for(int i = 0; i < routes.length; i++)
+//		        {
+//	        		if(!check[i]&&(routes[i][0] <= routes[minIndex][0] && routes[minIndex][0] <= routes[i][1])||
+//	        				(routes[i][0] <= routes[minIndex][1] && routes[minIndex][1] <= routes[i][1]))check[i] = true;
+//	        		else if(!add && !check[i]) {
+//	        			add = true; answer++;
+//	        		}
+//		        }
+//	        }
+
+	        	 int min = Integer.MIN_VALUE;
+	        Arrays.sort(routes, (a,b) -> Integer.compare(a[1], b[1]));
 	        
-	        for(int i = 0; i < routes.length; i++)
-	        {
-	        	if(routes[i][0] >routes[i][1]) {
-	        		int temp = routes[i][0];
-	        		routes[i][0] = routes[i][1];
-	        		routes[i][1] = temp;
+	        for(int[] route : routes) {
+	        	if(min < route[0]) {
+	        		min = route[1];
+	        		answer++;
 	        	}
 	        }
-	        
-	        boolean[] check = new boolean[routes.length];
-	        
-	        
-	        
-	        for(int r = 0; r < routes.length - 1; r++)
-	        {int minIndex = 0; int minCount = 70000;
-	        	if(check[r]) continue; boolean add = false;
-	        	for(int i = 0; i < routes.length; i++)
-		        {
-	        		if(check[i]) continue;
-	        		int c = 0; 
-	        		if(routes[i][1] >= 0) {
-	        			if(routes[i][0] >= 0) c = routes[i][1] - routes[i][0];
-	        			else c = routes[i][1] - routes[i][0];
-	        		}else c = -routes[i][0] + routes[i][1];
-	        		
-		        	if( c < minCount && !check[i]) {
-		        		minCount = c;
-		        		minIndex = i;
-		        	}
-		        }
-	        	for(int i = 0; i < routes.length; i++)
-		        {
-	        		if(!check[i]&&(routes[i][0] <= routes[minIndex][0] && routes[minIndex][0] <= routes[i][1])||
-	        				(routes[i][0] <= routes[minIndex][1] && routes[minIndex][1] <= routes[i][1]))check[i] = true;
-	        		else if(!add && !check[i]) {
-	        			add = true; answer++;
-	        		}
-		        }
-	        }
-	        
 	        return answer;
 	    }
 	}
