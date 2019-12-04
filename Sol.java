@@ -13,12 +13,12 @@ public class Sol {
 		      int start = s / n;
 		      int remain = s % n;
 		      int i = 0;
-		      for(; i < n; i++)answer[i] = start;
-		      i = 1;
+		      for(; i < n; i++) answer[i] = start;
+		      i = n - 1;
 		      while(remain > 0) {
-		    	  answer[i++] += 1;
+		    	  answer[i--] += 1;
 		    	  remain--;
-		    	  if(i == n) i = 1;
+		    	  if(i == 0) i = n - 1;
 		      }
 		      
 		      return answer;
