@@ -30,49 +30,82 @@ public class RoadFindingGame {
 	    	
 	    	Node leftNode = null; int leftIdx = -1;
 	    	for(int i = idx + 1; i < nodelist.size(); i++) {
-	    		if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    		if(parent.TopNode == null) {
 	    			if(leftNode == null) {
     					leftNode = nodelist.get(i);
 	    				leftIdx = i;
-    				}
-    				else {
+    				}else {
     					if(leftNode.xPos > nodelist.get(i).xPos && leftNode.yPos <= nodelist.get(i).yPos) {
-    						leftNode = nodelist.get(i);
+							leftNode = nodelist.get(i); leftIdx = i;
+						}
+    				}
+	    			
+	    		}
+	    		else if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos&&
+						parent.TopNode.xPos > nodelist.get(i).xPos) {
+	    			if(leftNode == null) {
+    					leftNode = nodelist.get(i);
+	    				leftIdx = i;
+    				}	
+    				else {
+    						if(leftNode.xPos < nodelist.get(i).xPos && leftNode.yPos <= nodelist.get(i).yPos) {
+    							leftNode = nodelist.get(i); leftIdx = i;
+    						}
     					}
     				}
 	    		}
-	    	}
+	    	
 	    	
 	    	
 	    	Node rightNode = null; int rightIdx = -1;
 	    	for(int i = idx + 1; i < nodelist.size(); i++) { 
-	    		if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    		if(parent.TopNode == null) {
+	    			if(rightNode == null) {
+    					rightNode = nodelist.get(i);
+	    				rightIdx = i;
+    				}
+    				else {
+    						if(rightNode.xPos < nodelist.get(i).xPos && rightNode.yPos <= nodelist.get(i).yPos) {
+    							rightNode = nodelist.get(i);
+    							rightIdx = i;
+    						}
+    				}
+	    		}
+
+	    		else if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos&&
+						parent.TopNode.xPos > nodelist.get(i).xPos ) {
 	    				if(rightNode == null) {
 	    					rightNode = nodelist.get(i);
 		    				rightIdx = i;
 	    				}
 	    				else {
-	    					if(rightNode.xPos > nodelist.get(i).xPos && rightNode.yPos <= nodelist.get(i).yPos) {
-	    						rightNode = nodelist.get(i);
-	    						rightIdx = i;
-	    					}
+	    						if(rightNode.xPos > nodelist.get(i).xPos && rightNode.yPos <= nodelist.get(i).yPos) {
+	    							rightNode = nodelist.get(i); rightIdx = i;
+	    						}
 	    				}
 	    		}
 	    	}
 	    	if(leftIdx == -1 && rightIdx == -1) return;
-	    	else if(leftIdx == -1) prefix(nodelist, prefixList, rightIdx);
+	    	else if(leftIdx == -1) {
+	    		rightNode.TopNode = parent;
+	    		prefix(nodelist, prefixList, rightIdx);
+	    	
+	    	}
 	    	else if(rightIdx == -1) {
+	    		leftNode.TopNode = parent;
 	    		prefix(nodelist, prefixList, leftIdx);
 	    	}
 	    	else {
+	    		rightNode.TopNode = parent;
+	    		leftNode.TopNode = parent;
 	    		prefix(nodelist, prefixList, leftIdx); // ¿ÞÂÊ ¤¡¤¡
 		    	prefix(nodelist, prefixList, rightIdx);// ¿À¸¥ÂÊ ¤¡¤¡
 	    	}
-	    }
 	    
+	    }
 		class Node implements Comparable<Node>{
 			int xPos; int yPos;
-			int value;
+			int value; Node TopNode;
 			boolean checked = false;
 			
 			Node(int x, int y ,int v){
