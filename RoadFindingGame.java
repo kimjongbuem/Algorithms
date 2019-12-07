@@ -15,33 +15,66 @@ public class RoadFindingGame {
 	        int[][] answer = {};
 	        LinkedList<Node> nodelist = new LinkedList<Node>();
 	        for(int i = 0; i < nodeinfo.length;i++) {
-	        	nodelist.add(new Node(nodeinfo[i][0],nodeinfo[i][0], i + 1));
+	        	nodelist.add(new Node(nodeinfo[i][0],nodeinfo[i][1], i + 1));
 	        }
 	        Collections.sort(nodelist);
-	       
-	       // topNode = nodelist.get(0);
+	        LinkedList<Integer> prefixList = new LinkedList<Integer>(); 
+	        prefix(nodelist, prefixList, 0); 
 	       
 	        
 	        return answer;
 	    }
-	    LinkedList<Integer> prefix(LinkedList<Node> nodelist,LinkedList<Integer> prefixList, int idx) {
-	    	int count = 0;
+	   void prefix(LinkedList<Node> nodelist,LinkedList<Integer> prefixList, int idx) {
 	    	Node parent = nodelist.get(idx);
 	    	prefixList.add(nodelist.get(idx).value); // 전위
 	    	
-	    	Node leftNode = null;
+	    	Node leftNode = null; int leftIdx = -1;
 	    	for(int i = idx + 1; i < nodelist.size(); i++) {
 	    		if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
-	    			if(leftNode == null) leftNode = nodelist.get(i); 
+	    			if(leftNode == null) {
+    					leftNode = nodelist.get(i);
+	    				leftIdx = i;
+    				}
+    				else {
+    					if(leftNode.xPos > nodelist.get(i).xPos && leftNode.yPos <= nodelist.get(i).yPos) {
+    						leftNode = nodelist.get(i);
+    					}
+    				}
 	    		}
 	    	}
 	    	
-	    	return prefixList;
+	    	
+	    	Node rightNode = null; int rightIdx = -1;
+	    	for(int i = idx + 1; i < nodelist.size(); i++) { 
+	    		if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    				if(rightNode == null) {
+	    					rightNode = nodelist.get(i);
+		    				rightIdx = i;
+	    				}
+	    				else {
+	    					if(rightNode.xPos > nodelist.get(i).xPos && rightNode.yPos <= nodelist.get(i).yPos) {
+	    						rightNode = nodelist.get(i);
+	    						rightIdx = i;
+	    					}
+	    				}
+	    		}
+	    	}
+	    	if(leftIdx == -1 && rightIdx == -1) return;
+	    	else if(leftIdx == -1) prefix(nodelist, prefixList, rightIdx);
+	    	else if(rightIdx == -1) {
+	    		prefix(nodelist, prefixList, leftIdx);
+	    	}
+	    	else {
+	    		prefix(nodelist, prefixList, leftIdx); // 왼쪽 ㄱㄱ
+		    	prefix(nodelist, prefixList, rightIdx);// 오른쪽 ㄱㄱ
+	    	}
 	    }
 	    
 		class Node implements Comparable<Node>{
 			int xPos; int yPos;
 			int value;
+			boolean checked = false;
+			
 			Node(int x, int y ,int v){
 				xPos =x; yPos = y; value =v;
 			}
