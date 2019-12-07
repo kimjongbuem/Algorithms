@@ -11,7 +11,7 @@ public class RoadFindingGame {
 	}
 	class Solution {
 	    public int[][] solution(int[][] nodeinfo) {
-	        int[][] answer = {};
+	        
 	        LinkedList<Node> nodelist = new LinkedList<Node>();
 	        for(int i = 0; i < nodeinfo.length;i++) {
 	        	nodelist.add(new Node(nodeinfo[i][0],nodeinfo[i][1], i + 1));
@@ -19,10 +19,31 @@ public class RoadFindingGame {
 	        Collections.sort(nodelist);
 	        LinkedList<Integer> prefixList = new LinkedList<Integer>(); 
 	        prefix(nodelist, prefixList, 0); 
+	       int[] a1 = new int[prefixList.size()];
+	       for(int i = 0; i < prefixList.size();i++) {
+	    	   a1[i] = prefixList.get(i);
+	       } prefixList.clear();
+	       postfix(nodelist.get(0),prefixList);
+	       int[] a2 = new int[prefixList.size()];
+	       for(int i = 0; i < prefixList.size();i++) {
+	    	   a2[i] = prefixList.get(i);
+	       } 
+	       int[][] answer = new int[2][a2.length];
+	       for(int i = 0; i < a2.length; i++) {
+	    	   answer[0][i] = a1[i];
+	    	   answer[1][i] = a2[i];
+	       }
 	       
-	        
 	        return answer;
 	    }
+	    void postfix(Node n,LinkedList<Integer> prefixList) {
+	    	if(n == null) return;
+	    	
+	    	postfix(n.left, prefixList);
+	    	postfix(n.right, prefixList);
+	    	prefixList.add(n.value);
+	    }
+	    
 	    void prefix(LinkedList<Node> nodelist,LinkedList<Integer> prefixList, int idx) {
 	    	Node parent = nodelist.get(idx);
 	    	prefixList.add(nodelist.get(idx).value); // ÀüÀ§
@@ -130,15 +151,19 @@ public class RoadFindingGame {
 	    	}
 	    	if(left == -1 && right == -1) return;
 	    	else if(left== -1) {
+	    		parent.right = rightNode;
 	    		rightNode.TopNode = parent;
 	    		prefix(nodelist, prefixList, right);
 	    	
 	    	}
 	    	else if(right== -1) {
+	    		parent.left= leftNode;
 	    		leftNode.TopNode = parent;
 	    		prefix(nodelist, prefixList, left);
 	    	}
 	    	else {
+	    		parent.left= leftNode;
+	    		parent.right= rightNode;
 	    		rightNode.TopNode = parent;
 	    		leftNode.TopNode = parent;
 	    		prefix(nodelist, prefixList, left); // ¿ÞÂÊ ¤¡¤¡
@@ -150,7 +175,7 @@ public class RoadFindingGame {
 		class Node implements Comparable<Node>{
 			int xPos; int yPos;
 			int value; Node TopNode;
-			
+			Node left, right;
 			Node(int x, int y ,int v){
 				xPos =x; yPos = y; value =v;
 			}
