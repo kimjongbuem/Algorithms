@@ -26,7 +26,9 @@ public class RoadFindingGame {
 	    void prefix(LinkedList<Node> nodelist,LinkedList<Integer> prefixList, int idx) {
 	    	Node parent = nodelist.get(idx);
 	    	prefixList.add(nodelist.get(idx).value); // 전위
-	    	
+	    	if(prefixList.size() > 7) {
+	    		System.out.println();
+	    	}
 	    	Node leftNode = null; Node rightNode = null; int left = -1; int right = -1;
 	    	if(parent.TopNode == null) {
 	    		for(int i = idx + 1; i < nodelist.size();i++) {
@@ -45,11 +47,53 @@ public class RoadFindingGame {
 	    				else continue;
 	    			}
 	    		}
-	    	}else {
+	    	}
+	    	else if(parent.TopNode.TopNode == null) {
 	    		Node up = parent.TopNode;
 	    		if(up.xPos > parent.xPos) {
 	    			for(int i = idx + 1; i < nodelist.size(); i++) {
 	    				if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    					if(leftNode == null) {
+	    						leftNode = nodelist.get(i);
+	    						left = i;
+	    					}
+	    					else continue; // ? 수정예상곳
+	    				}
+	    				else if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos &&
+	    						up.xPos > nodelist.get(i).xPos) {
+	    					if(rightNode == null) {
+	    						rightNode = nodelist.get(i);
+	    						right = i;
+	    					}
+	    				}
+	    			}
+	    		}else {
+	    			for(int i = idx + 1; i < nodelist.size(); i++) {
+	    				if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos&&
+	    						up.xPos < nodelist.get(i).xPos ) {
+	    					if(leftNode == null) {
+	    						leftNode = nodelist.get(i);
+	    						left = i;
+	    					}
+	    					else continue; // ? 수정예상곳
+	    				}
+	    				else if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    					if(rightNode == null) {
+	    						rightNode = nodelist.get(i);
+	    						right = i;
+	    					}
+	    				}
+	    			}
+	    		}
+	    	}
+	    	else {
+	    		Node up = parent.TopNode; //Node upup = up.TopNode;
+	    		
+	    		
+	    		if(up.xPos > parent.xPos) {
+	    			for(int i = idx + 1; i < nodelist.size(); i++) {
+	    				if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos&&
+	    					up.TopNode.xPos > nodelist.get(i).xPos ) {
 	    					if(leftNode == null) {
 	    						leftNode = nodelist.get(i);
 	    						left = i;
@@ -66,13 +110,16 @@ public class RoadFindingGame {
 	    		}
 	    		else if(up.xPos < parent.xPos) {
 	    			for(int i = idx + 1; i < nodelist.size(); i++) {
-	    				if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) { // left
+	    				if(parent.xPos > nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos &&
+	    						up.TopNode.xPos < nodelist.get(i).xPos ) { // left
 	    					if(leftNode == null) {
 	    						leftNode = nodelist.get(i);
 	    						left = i;
 	    					}
 	    				}
-	    				else if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos) {
+	    				else if(parent.xPos < nodelist.get(i).xPos && parent.yPos > nodelist.get(i).yPos &&
+	    						up.TopNode.xPos > nodelist.get(i).xPos 
+	    						) {
 	    					if(rightNode == null) {
 	    						rightNode = nodelist.get(i);
 	    						right = i;
