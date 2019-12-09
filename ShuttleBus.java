@@ -4,8 +4,8 @@ public class ShuttleBus {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String[] timeTable = {"08:00", "08:01", "08:02", "08:03"};
-		System.out.println(new ShuttleBus().new Solution().solution(1, 1, 5, timeTable));
+		String[] timeTable = {"09:10", "09:09", "08:00"};//{"08:00", "08:01", "08:02", "08:03"};//09:10, 09:09, 08:00]
+		System.out.println(new ShuttleBus().new Solution().solution(2, 10, 2, timeTable));
 
 	}
 	/** 블로그와 동영상 참고를 하여 문제를 풀었습니다. // 이해가 안가서 ㅠㅠ 
@@ -30,10 +30,11 @@ public class ShuttleBus {
 		    	  conTime = busTime;
 		    	  int capacity = m;
 		    	  while(!pq.isEmpty() && capacity > 0) {
+		    		  if(pq.peek().compareTo(busTime) > 0) break;
 		    		  Time crew = pq.poll();
 		    		  if(capacity == 1) {
-		    			crew.add(1, -1);
 		    			conTime = crew;
+		    			conTime.add(1 ,-1);
 		    		  }
 		    		  capacity--;
 		    	  }
@@ -53,7 +54,7 @@ public class ShuttleBus {
 				  int tt = (n* t) % 60;
 				  h += th; m += tt;
 				  if(m >= 60) {
-					  h += m / 60;
+					  h++;
 					  m = m % 60;
 				  }else if(m < 0) {
 					  h--;
@@ -67,7 +68,7 @@ public class ShuttleBus {
 			  
 			  @Override
 			  public int compareTo(Time o) {
-				  return o.h > h? 1 : o.h < h? -1 : o.m > m ? 1 : 0;
+				  return this.h < o.h ? -1 : this.h > o.h ? 1 : this.m < o.m ? -1 : this.m > o.m ? 1 : 0;
 			  }
 			  
 		  }
