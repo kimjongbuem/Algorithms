@@ -5,19 +5,39 @@ public class Marble_SAMSUNG1 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			Scanner sc = new Scanner(System.in);
-			int n = sc.nextInt(); // y
-			int m = sc.nextInt(); // x
-//			5 5
+			int n = 7;//sc.nextInt(); // y
+			int m = 7;//sc.nextInt(); // x
+			String[] map = new String[n];
+//			5 5 
 //			#####
 //			#..B#
 //			#.#.#
 //			#RO.#
 //			#####
-			String[] map = new String[n];
+//			map[0]="#####";
+//			map[1]="#..B#";
+//			map[2]="#.#.#";
+//			map[3]="#RO.#";
+//			map[4]="#####";
+//			7 7
+//			#######
+//			#...RB#
+//			#.#####
+//			#.....#
+//			#####.#
+//			#O....#
+//			#######
+			map[0]="#######";
+			map[1]="#...RB#";
+			map[2]="#.#####";
+			map[3]="#.....#";
+			map[4]="#####.#";
+			map[5]="#O....#";
+			map[6]="#######";
 //			for(int i = 0; i < n;i++) {
 //				map[i] = sc.next(); 
 //			}
-//			
+			
 			
 			
 			System.out.println(new Marble_SAMSUNG1().MarbleQuestion(n - 1, m - 1, map));
@@ -25,16 +45,16 @@ public class Marble_SAMSUNG1 {
 	public int MarbleQuestion(int n, int m, String[] map) {
 		
 		int answer = 0;
-		boolean[][] bool = new boolean[n][m];
-		char[][] ch = new char[n][m];
+		boolean[][] bool = new boolean[n + 1][m + 1];
+		char[][] ch = new char[n + 1][m + 1];
 		boolean[] direction = new boolean[4]; // 상 하 좌 우 체크
 		boolean goal = false; boolean first = false;
-		for(int i = 0; i < n ; i++) {
+		for(int i = 0; i < n + 1 ; i++) {
 			ch[i] = map[i].toCharArray();
 		}
 		
-		for(int i = 0; i < n ; i++) {
-			for(int j = 0; j < n ; j++) {
+		for(int i = 0; i < n + 1 ; i++) {
+			for(int j = 0; j < m + 1 ; j++) {
 				if(ch[i][j] == '#' || ch[i][j] == 'R') bool[i][j] = true;
 				if(ch[i][j] == 'R') {
 					r_xPos = j; r_yPos = i;
@@ -693,43 +713,60 @@ public class Marble_SAMSUNG1 {
 		int rx = r_xPos; int ry = r_yPos;
 		
 		// upper //
-		if(ry == 0 || !bool[ry - 1][rx] && ch[ry - 1][rx] == '#') {}
-		else if(!bool[ry - 1][rx] && ch[ry - 1][rx] == 'B') {
-			if(ry - 2 < 0 || ch[ry - 2][rx] == '#') {}
+		if(ry == 0 || bool[ry - 1][rx] && ch[ry - 1][rx] == '#') {}
+		else if(ch[ry - 1][rx] == 'B') {
+			if(bool[ry - 1][rx]) {}
+			else if(ry - 2 < 0 || ch[ry - 2][rx] == '#') {}
 			else {
 				val++;
 				dir[0] = true;
-			}
+			}	
+		}
+		else {
+			val++;
+			dir[0] = true;
 		}
 		
 		//down//
-		if(ry == ch.length - 1 || !bool[ry + 1][rx] && ch[ry + 1][rx] == '#') {}
-		else if(!bool[ry + 1][rx] && ch[ry + 1][rx] == 'B') {
-			if(ry + 2 > ch.length - 1 || ch[ry + 2][rx] == '#') {}
+		if(ry == ch.length - 1 || bool[ry + 1][rx] && ch[ry + 1][rx] == '#') {}
+		else if( ch[ry + 1][rx] == 'B') {
+			if(bool[ry + 1][rx]) {}
+			else if(ry + 2 > ch.length - 1 || ch[ry + 2][rx] == '#') {}
 			else {
 				val++;
 				dir[1] = true;
 			}
+		}else {
+			val++;
+			dir[1] = true;
 		}
 		
 		//left//
-		if(rx == 0 || !bool[ry][rx - 1] && ch[ry][rx - 1] == '#') {}
-		else if(!bool[ry][rx - 1] && ch[ry][rx - 1] == 'B') {
-			if(rx - 2 < 0 || ch[ry][rx - 2] == '#') {}
+		if(rx == 0 || bool[ry][rx - 1] && ch[ry][rx - 1] == '#') {}
+		else if(ch[ry][rx - 1] == 'B') {
+			if(bool[ry][rx - 1]) {}	
+			else if(rx - 2 < 0 || ch[ry][rx - 2] == '#') {}
 			else {
 				val++;
 				dir[2] = true;
 			}
+		}else {
+			val++;
+			dir[2] = true;
 		}
 		
 		//right
-		if(rx == ch[0].length - 1 || !bool[ry][rx + 1] && ch[ry][rx + 1] == '#') {}
-		else if(!bool[ry][rx + 1] && ch[ry][rx + 1] == 'B') {
-			if(rx + 2 < ch[0].length - 1 || ch[ry][rx + 2] == '#') {}
+		if(rx == ch[0].length - 1 || bool[ry][rx + 1] && ch[ry][rx + 1] == '#') {}
+		else if(ch[ry][rx + 1] == 'B') {
+			if(bool[ry][rx + 1]) {}
+			else if(rx + 2 < ch[0].length - 1 || ch[ry][rx + 2] == '#') {}
 			else {
 				val++;
 				dir[3] = true;
 			}
+		}else {
+			val++;
+			dir[3] = true;
 		}
 		return val;
 	}
