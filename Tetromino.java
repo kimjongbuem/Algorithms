@@ -201,7 +201,7 @@ public class Tetromino {
 					check[i][j] = true; check[i+1][j + 1] = true; 
 					check[i][j+1] = true; 
 					check[i][j + 2] = true;
-					rotate = 0;
+					rotateStack.add(0);
 					int temp = values[i][j] + values[i + 1][j + 1] + values[i][j + 1] + values[i][j + 2];
 					max = max > temp? max : temp;
 					return true;
@@ -217,7 +217,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 1][j] = true; 
 					check[i + 1][j + 1] = true; 
 					check[i + 2][j] = true;
-					rotate = 90;
+					rotateStack.add(90);
 					int temp = values[i][j] + values[i + 1][j + 1] + values[i + 2][j] + values[i + 1][j];
 					max = max > temp? max : temp;
 					return true;
@@ -233,7 +233,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 1][j - 1] = true; 
 					check[i + 1][j + 1] = true; 
 					check[i + 1][j] = true;
-					rotate= 180;
+					rotateStack.add(180);
 					int temp = values[i][j] + values[i + 1][j - 1] + values[i + 1][j + 1] + values[i + 1][j];
 					max = max > temp? max : temp; 
 				}
@@ -248,7 +248,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 1][j] = true; 
 					check[i + 2][j] = true; 
 					check[i + 1][j - 1] = true;
-					rotate = 270;
+					rotateStack.add(270);
 					int temp = values[i][j] + values[i + 1][j] + values[i + 2][j] + values[i + 1][j - 1];
 					max = max > temp? max : temp;
 					return true;
@@ -268,7 +268,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 1][j] = true; 
 					check[i + 2][j] = true; 
 					check[i][j + 1] = true;
-					rotate = 0;
+					rotateStack.add(0);
 					int temp = values[i][j] + values[i + 1][j] + values[i + 2][j] + values[i][j + 1];
 					max = max > temp? max : temp;
 					return true;
@@ -284,7 +284,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 1][j] = true; 
 					check[i + 1][j + 1] = true; 
 					check[i + 1][j + 2] = true;
-					rotate = 90;
+					rotateStack.add(90);
 					int temp = values[i][j] + values[i + 1][j + 1] + values[i + 1][j + 2] + values[i + 1][j];
 					max = max > temp? max : temp;
 					return true;
@@ -292,7 +292,7 @@ public class Tetromino {
 			}
 		}
 		// 180
-		for(int i = 0; i + 2< check.length ;i++) {
+		for(int i = 0; (i + 2)< check.length ;i++) {
 			for(int j = 1; j < check[0].length;j++) {
 				if(!check[i][j] && !check[i + 2][j - 1] && !check[i + 2][j] && !check[i + 1][j])
 				{
@@ -300,7 +300,7 @@ public class Tetromino {
 					check[i][j] = true; check[i + 2][j - 1] = true; 
 					check[i + 2][j] = true; 
 					check[i + 1][j] = true;
-					rotate= 180;
+					rotateStack.add(180);
 					int temp = values[i][j] + values[i + 2][j - 1] + values[i + 2][j] + values[i + 1][j];
 					max = max > temp? max : temp; 
 				}
@@ -315,7 +315,7 @@ public class Tetromino {
 					check[i][j] = true; check[i][j + 1] = true; 
 					check[i][j + 2] = true; 
 					check[i + 1][j + 2] = true;
-					rotate = 270;
+					rotateStack.add(270);
 					int temp = values[i][j] + values[i][j + 1] + values[i][j + 2] + values[i + 1][j + 2];
 					max = max > temp? max : temp;
 					return true;
