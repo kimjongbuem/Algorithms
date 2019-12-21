@@ -20,7 +20,7 @@ public class KebinBaken {
 	}
 	int solution(int n, int m, int[] linkA, int[] linkB) {
 		LinkedList<N> nodeList = new LinkedList<N>();
-		for(int i = 1; i<=5;i++ ) {
+		for(int i = 1; i<=n;i++ ) {
 			nodeList.add(new N(i));
 		}
 		for(int i = 0; i < m; i++) {
