@@ -19,37 +19,36 @@ public class NExpreesion {
 	    public void BFS(int N, int number) {
 	    	if(count >= min) return;
 	    	if(list.size() >= min) return;
-	    	int lastNumber = (list.size() == 0) ? 0 : list.get(list.size() - 1);
+	    	int lastNumber = list.size() == 0 ? 0 : list.get(list.size() - 1);
 	    	if(lastNumber == number) {
-	    		min = min > count ? count : min; return;
+	    		min = count > min ? min : count; 
+	    		return;
 	    	}
 	    	int n = 0; int addCount = 0;
-	    	for(int c = 1; c<=1000000; c*=10) {
+	    	for(int i = 1; i <= Integer.MAX_VALUE; i*=10) {
 	    		addCount++;
-	    		if(count +addCount >= min) break;
-	    		n += (c * N);
-	    		count += addCount;
-	    		
-	    		list.add(lastNumber + n);
-	    		BFS(N, number);
-	    		list.pop();
-	    		
-	    		if(lastNumber - n != 0) {
-	    			list.add(lastNumber - n);
-		    		BFS(N, number);
-		    		list.pop();
-	    		}
-	    		
-	    		list.add(lastNumber * n);
-	    		BFS(N, number);
-	    		list.pop();
-	    		
-	    		if(lastNumber / n != 0) {
-	    			list.add(lastNumber / n);
-		    		BFS(N, number);
-		    		list.pop();
-	    		}
-	    		count -= addCount;
+ 	    		if(count + addCount >= min) return;
+ 	    		n += (i * N); 
+ 	    		count += addCount;
+ 	    		
+ 	    		list.add(lastNumber + n);
+ 	    		BFS(N, number);
+ 	    		list.pop();
+ 	    		
+ 	    		if(lastNumber - N != 0) {
+ 	    			list.add(lastNumber - n);
+ 	 	    		BFS(N, number);
+ 	 	    		list.pop();
+ 	    		}
+ 	    			list.add(lastNumber * n);
+	 	    		BFS(N, number);
+	 	    		list.pop();
+ 	    		if(lastNumber / N != 0) {
+ 	    			list.add(lastNumber / n);
+ 	 	    		BFS(N, number);
+ 	 	    		list.pop();
+ 	    		}
+ 	    		count -= addCount;
 	    	}
 	    }
 	    
