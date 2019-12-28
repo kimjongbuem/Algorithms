@@ -21,6 +21,7 @@ public class ConferenceReady {
 		for(int i = 1; i <= nodeCount;i++) {
 			nodeList.add(new Node(i));
 			for(int j = 1; j <= nodeCount;j++) {
+				if(i == j) d[i][j] = 0; 
 				d[i][j] = INF;
 			}
 		}
@@ -40,14 +41,11 @@ public class ConferenceReady {
 					if(d[j][i] + d[i][k] < d[j][k]) d[j][k] = d[j][i] + d[i][k];
 				}
 			}
-		}
-		for(int i = 1; i <= nodeCount;i++) d[i][i] = 0;
-		
+		}		
 		
 		for(int i = 0; i <nodeList.size();i++) { // 모든 노드들 반복
 			if(!nodeList.get(i).checked) {
-				
-				int curRepresentation = -1;
+				int curRepresentation = nodeList.get(i).number;
 				LinkedList<Integer> numbers = new LinkedList<Integer>();
 				Queue<Node> queue = new LinkedList<Node>();
 				queue.add(nodeList.get(i)); nodeList.get(i).checked = true;
@@ -89,5 +87,4 @@ public class ConferenceReady {
 			number = num;
 		}
 	}
-
 }
