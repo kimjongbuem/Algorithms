@@ -11,10 +11,6 @@ public class DijkstraAlgorithm {
 		Graph g = new DijkstraAlgorithm().new Graph();
 		g.DijkstarNotHeap(4);
 		g.Print();
-		
-		
-		
-		//2번힙
 	}
 	
 	class Graph{
@@ -26,8 +22,8 @@ public class DijkstraAlgorithm {
 			for(int i = 0; i < 5; i++) {
 				vertexs[i] = new Vertex(i);
 			}
-			vertexs[4].lines.add(new Line(vertexs[1], 4));
 			vertexs[4].lines.add(new Line(vertexs[3], 2));
+			vertexs[4].lines.add(new Line(vertexs[1], 4));
 			vertexs[1].lines.add(new Line(vertexs[0], 3));
 			vertexs[3].lines.add(new Line(vertexs[1], 1));
 			vertexs[3].lines.add(new Line(vertexs[2], 1));
@@ -38,27 +34,27 @@ public class DijkstraAlgorithm {
 		public void DijkstarNotHeap(int number) {
 			 
 			for(int i = 0; i < 5; i++) {
-				dist[i] = INF; prev[i] = max;
+				dist[i] = INF;
 				for(int j = 0; j < 5; j++) {
 					if(i == j) continue;
 				}
-			} dist[number] = 0;  prev[4] = 0; 
+			} dist[number] = 0;  
 			
 			Queue<Vertex> queue = new LinkedList<Vertex>();
-			queue.add(vertexs[number]); vertexs[number].flag = true;
+			queue.add(vertexs[number]); 
 			while(!queue.isEmpty()) {
 				Vertex ver = queue.poll();
 				for(int i = 0; i < ver.lines.size(); i++) {
-					if(!ver.lines.get(i).other.flag) {
-						ver.lines.get(i).other.flag = true;
+					if(!ver.lines.get(i).flag) {
+						ver.lines.get(i).flag = true;
 						int n = ver.lines.get(i).other.number;
-						if(prev[n] == max || prev[n] == 0) { // 이전 데이터가 없는경우 또는 시작 버텍스인 경우
+						if(prev[ver.number] == 0) { // 이전 데이터가 없는경우 또는 시작 버텍스인 경우
 							prev[n] = ver.number;
 							dist[n] = ver.lines.get(i).distance; 
 						}else { // 이전 데이터가 있는경우
-							if(dist[n] > dist[prev[ver.number]] + ver.lines.get(i).distance) {
+							if(dist[n] > dist[ver.number] + ver.lines.get(i).distance) {
 								prev[n] = ver.number;
-								dist[n] = dist[prev[ver.number]] + ver.lines.get(i).distance; 
+								dist[n] = dist[ver.number] + ver.lines.get(i).distance; 
 							}
 						}
 						queue.add(ver.lines.get(i).other);
@@ -73,13 +69,14 @@ public class DijkstraAlgorithm {
 	class Vertex{
 		int number;
 		LinkedList<Line> lines = new LinkedList<Line>();
-		boolean flag = false;
+		
 		public Vertex(int number) {
 			this.number = number;
 		}
 	}
 	class Line{
 		Vertex other;
+		boolean flag = false;
 		int distance;
 		Line(Vertex v, int d){
 			other = v; distance = d;
