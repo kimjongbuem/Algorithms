@@ -4,7 +4,7 @@ import java.util.Collections;
 public class LifeBoat {
 
 	public static void main(String[] args) {
-		int people[] = {70,50,80,50}; int limit = 100;
+		int people[] = {70,80,50}; int limit = 100;
 		System.out.println(new LifeBoat().new Solution().solution(people, limit));
 	}
 	class Solution {
@@ -25,7 +25,7 @@ public class LifeBoat {
 	        	}
 	        	if(!flag) containers[++answer] = w;
 	        }
-	        return answer;
+	        return containers[answer] > 0 ? answer + 1 : answer;
 	    }
 	}
 }
