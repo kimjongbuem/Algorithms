@@ -12,7 +12,7 @@ public class Q1197 {
 		for(int i = 0; i < v; i++) nodeList.add(new Node(i + 1));
 		for(int i = 0; i < e; i++) nodeList.get(sc.nextInt() - 1).LineList.add(new Line(nodeList.get(sc.nextInt() - 1), sc.nextInt()));
 		for(int i = 1; i <= v; i++) DFS(nodeList.get(i - 1)); 
-		
+		System.out.println(answer);
 	}
 	static void DFS(Node start) {
 		start.checked = true;
@@ -22,6 +22,8 @@ public class Q1197 {
 				DFS(start.LineList.get(l).d);
 			}
 		}
+		answer = temp > answer ? answer :temp;
+		start.checked = false;
 	}
 	
 	static class Node{
