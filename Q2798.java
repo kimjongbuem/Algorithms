@@ -16,7 +16,8 @@ public class Q2798 {
 		System.out.println(answer);
 	}
 	public static void Result(int idx) {
-		if(count >= 3 || RESULT > M) return;
+		if(answer == M) return;
+		if(count >= 3 && RESULT > M) return;
 		else if(count >= 3) answer = answer > RESULT ? answer : RESULT; 
 		else {
 			RESULT += N[idx]; count++;
