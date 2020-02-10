@@ -11,17 +11,19 @@ public class Q2798 {
 		Scanner sc =new Scanner(System.in);
 		n = sc.nextInt();
 		M = sc.nextInt();
-		for(int i = 1;i<=n;i++) N[i] = sc.nextInt();
-		Result(1);
+		for(int i = 0;i<n;i++) N[i] = sc.nextInt();
+		Result(0);
 		System.out.println(answer);
 	}
 	public static void Result(int idx) {
 		if(answer == M) return;
 		if(count >= 3 && RESULT > M) return;
-		else if(count >= 3) answer = answer > RESULT ? answer : RESULT; 
+		else if(count >= 3) {
+			answer = answer > RESULT ? answer : RESULT; 
+		}
 		else {
 			RESULT += N[idx]; count++;
-			for(int i = idx + 1; i <= n;i++) Result(i);
+			for(int i = idx ; i <= n;i++) Result(i);
 			RESULT -= N[idx]; count--;
 		}
 	}
