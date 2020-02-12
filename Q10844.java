@@ -12,8 +12,14 @@ public class Q10844 {
 		for(int i = 2; i <= n;i++) {
 			for(int j = 0; j <= 9; j++) {
 				dp[i][j] = 0;
+				if(j - 1 >= 0) dp[i][j] += dp[i - 1][j - 1];
+				if(j + 1 < 10) dp[i][j] += dp[i - 1][j + 1];
+				dp[i][j] = dp[i][j] % mod;
 			}
 		}
+		int ans = 0;
+		for(int i = 0; i <= 9;i++) ans+=dp[n][i];
+		System.out.println(ans); sc.close();
 	}
 
 }
