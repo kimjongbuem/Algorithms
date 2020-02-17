@@ -21,15 +21,19 @@ public class Q2188 {
 	static int bmatch() {
 		int result = 0;
 		for(int i = 1; i <= n; i++) {
-			
+			if(cows[i] != 0) continue;
+			if(dfs(i)) result++;
 		}
+		return result;
 	}
 	static boolean dfs(int here) {
 		visited[here] = true;
-		int k = 1;
-		while(info[here][k] != 0) {
-			if()
-			k++;
+		for(int i = 1; i<=m;i++) {
+			if(shed[i] == 0 || (!visited[shed[i]] && dfs(shed[i]))) {
+				cows[here] = i;
+				shed[i] = here;
+				return true;
+			}
 		}
 	}
 }
