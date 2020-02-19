@@ -5,10 +5,10 @@ public class Q3980 {
 		Scanner sc = new Scanner(System.in);
 		int n= sc.nextInt();
 		int val = 1;
-		for(int i = 1;i<n;i++) {
+		for(int i = 0;i<n;i++) {
 			val*=2;
 		}
-		if(val == 1)System.out.println(val);
+		if(n == 1)System.out.println(1);
 		else System.out.println(val - 1);
 		if(n<=20) HanoiTower(n, 1, 2, 3);
 	}
