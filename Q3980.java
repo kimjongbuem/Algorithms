@@ -8,8 +8,9 @@ public class Q3980 {
 		for(int i = 1;i<n;i++) {
 			val*=2;
 		}
-		System.out.println(val - 1);
-		HanoiTower(n, 1, 2, 3);
+		if(val == 1)System.out.println(val);
+		else System.out.println(val - 1);
+		if(n<=20) HanoiTower(n, 1, 2, 3);
 	}
 	public static void HanoiTower(int n,int from,int center,int to) {
 		if(n == 1) {
